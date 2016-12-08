@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="add_two_ints_server" pkg="example_smach" type="add_two_ints_server.py"/>
+  <node name="add_three_ints_server" pkg="example_smach" type="add_three_ints_server.py"/>
+  <node name="add_four_ints_server" pkg="example_smach" type="add_four_ints_server.py"/>
+  <node name="smach_service" pkg="example_smach" type="service.py"/>
+  <node name="smach_viewer" pkg="smach_viewer" type="smach_viewer.py"/>
+</launch>

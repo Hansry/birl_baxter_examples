@@ -53,6 +53,7 @@ class TestServices(unittest.TestCase):
                 add_four_ints_request = AddFourIntsRequest(10,30,30,40)
                 return add_four_ints_request
 
+            
             StateMachine.add('State_two_ints',
                     ServiceState('add_two_ints',
                         AddTwoInts,
@@ -61,7 +62,7 @@ class TestServices(unittest.TestCase):
                         output_keys=['foo_var_out']),
                     remapping={'foo_var_out':'sm_var'},
                     transitions={'succeeded':'State_three_ints'})
-
+    
             
             StateMachine.add('State_three_ints',
                     ServiceState('add_three_ints',
@@ -82,10 +83,13 @@ class TestServices(unittest.TestCase):
                     remapping={'foo_var_out':'sm_var'},
                     transitions={'succeeded':'done'})             
 
-        #rospy.wait_for_service('add_two_ints')
-        #add_two_ints = rospy.ServiceProxy('add_two_ints', AddTwoInts)
+        #add smach viewer to view
         sis = IntrospectionServer('My_server',sm, '/SM_ROOT')
         sis.start()
+
+        #waitfor view start
+        rospy.sleep(3.0)
+        #excute the service 
         outcome = sm.execute()
         
         rospy.loginfo("OUTCOME: "+outcome)
