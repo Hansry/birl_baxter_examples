@@ -64,7 +64,7 @@
 #-----------------------------------------
 # Imports
 #-----------------------------------------
-import pdb                                          # To enable debug, uncomment the next line.
+import ipdb                                          # To enable debug, uncomment the next line.
 import os                                           # used to clear the screen
 
 ## ROS
@@ -103,6 +103,7 @@ dt   = 1/rate
 # On how to compute the null space from SVD: 
 # http://en.wikipedia.org/wiki/Singular_value_decomposition
 # http://www.ecse.rpi.edu/~qji/CV/svd_review.pdf  
+# http://scipy-cookbook.readthedocs.io/items/RankNullspace.html
     
 def null(A, eps=1e-12):
      u, s, vh = linalg.svd(A)                       # Capute the nullspace in vh
@@ -129,7 +130,7 @@ def shutdown():
 def main():
 
     # If you want to debug, uncomment the next line.
-    #pdb.set_trace()
+    ipdb.set_trace()
 
     # Initialize node
     rospy.init_node('example3_kdl')
@@ -182,7 +183,7 @@ def main():
         # 1. Get the current angles and jacobian as numpy matrices
         rAngles=rLimb.joint_angles() # returns as s0s1w0w1w2e0e1
         rAnglesM=matrix(rAngles.values()).T
-        jac=rKin.jacobian()
+        jac_n=rKin.jacobian() # wrt end-effector frame. TODO: change to world frame.
 
         # 2. Compute the forward Kinematics using the Jacobian: del_p=J(q)del_q
         curr_pos=rLimb.endpoint_pose()

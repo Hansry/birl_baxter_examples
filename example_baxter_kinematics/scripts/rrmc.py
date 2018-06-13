@@ -18,7 +18,7 @@ def null(A, eps=1e-3):
 def Movejac():    
     leftangle=leftarm.joint_angles()
     leftKin=baxter_kinematics('left') 
-    vel=matrix("0;0;0.1;0;0;0")
+    vel=matrix("0.001;0;0.001;0;0;0")
     Ljac=leftKin.jacobian_pseudo_inverse()
     dp=Ljac*vel
     cmd={}
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     leftarm.move_to_neutral()
     print '******  move leftarm in x direction    ******'
     count=0  
-    while count<100:
+    while count<500:
         Movejac( )
         count=count+1
         
